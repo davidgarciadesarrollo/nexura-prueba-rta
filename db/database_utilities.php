@@ -80,7 +80,7 @@ if(isset($_POST['nombre']) && $_POST['nombre']!="")  {
 		?>
 		<script>
 		alert("enviados");
-		window.location.href = "http://localhost/prueba-nexura_editar/";
+		window.location.href = "http://localhost/nexura-prueba-rta-main";
 		</script>
 	<?php
 	}
