@@ -45,8 +45,7 @@ $empleado_one = get_empleado_one();
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" id="nombre" name="nombre"
-                                aria-describedby="emailHelp" placeholder="Nombre completo del empleado" min="3"
-                                max="100" required>
+                                aria-describedby="emailHelp" placeholder="Nombre completo del empleado" required>
                         </div>
                     </div>
 
@@ -104,7 +103,7 @@ $empleado_one = get_empleado_one();
                         <div class="col-8">
                             <textarea type="text" class="form-control" id="descripcion" name="descripcion"
                                 aria-describedby="emailHelp" placeholder="Descripcíon de la experiencia del empleado"
-                                min="3" max="100" required> </textarea>
+                                 required> </textarea>
                         </div>
                     </div>
 
@@ -208,8 +207,7 @@ $empleado_one = get_empleado_one();
                             <div class="col-8">
                                 <input type="text" class="form-control" id="nombres" name="nombre"
                                     value="<?php echo utf8_encode(utf8_decode($datos['nombre']));  ?>"
-                                    aria-describedby="emailHelp" placeholder="Nombre completo del empleado" min="3"
-                                    max="100" required>
+                                    aria-describedby="emailHelp" placeholder="Nombre completo del empleado"  required>
                             </div>
                         </div>
 
@@ -266,7 +264,7 @@ $empleado_one = get_empleado_one();
                             <div class="col-8">
                                 <textarea type="text" class="form-control" id="descripcions" name="descripcion"
                                     aria-describedby="emailHelp"
-                                    placeholder="Descripcíon de la experiencia del empleado" min="3" max="100" required> </textarea>
+                                    placeholder="Descripcíon de la experiencia del empleado"  required> </textarea>
                             </div>
                         </div>
 
