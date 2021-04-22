@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-04-2021 a las 02:08:03
+-- Tiempo de generación: 22-04-2021 a las 06:05:54
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.3.27
 
@@ -65,7 +65,7 @@ CREATE TABLE `empleados` (
 --
 
 INSERT INTO `empleados` (`id_empleado`, `nombre`, `correo`, `sexo`, `id_area`, `boletin`, `descripcion`) VALUES
-(2, 'eder', 'davidgarcia.desarrollo@gmail.com', 'M', 1, 1, 'eder');
+(2, 'david', 'davidgarcia.desarrollo@gmail.com', 'M', 5, 1, 'mensaje');
 
 -- --------------------------------------------------------
 
@@ -83,9 +83,10 @@ CREATE TABLE `empleado_rol` (
 --
 
 INSERT INTO `empleado_rol` (`empleado_id`, `rol_id`) VALUES
-(2, '1'),
-(2, '2'),
-(2, '3');
+(3, '1'),
+(3, '2'),
+(3, '3'),
+(2, '1');
 
 -- --------------------------------------------------------
 
