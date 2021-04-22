@@ -149,14 +149,14 @@ $empleado_one = get_empleado_one();
                             <div class="d-block">
                                 <?php while ($name_rol = $rol->fetch_assoc()) { ?>
                                 <div class="form-check form-check-inline col-12 mt-0">
-                                    
+
                                     <input class="form-check-input " type="checkbox" name="rol_id[]"
                                         id="inlineRadio1 rol_id"
-                                        value="<?php echo utf8_decode($name_rol['id_rol']);  ?>" >
+                                        value="<?php echo utf8_decode($name_rol['id_rol']);  ?>">
 
 
-                                    <label class="form-check-label" for="inlineRadio1" 
-                                        ><?php echo utf8_encode(utf8_decode($name_rol['nombre'])); ?>
+                                    <label class="form-check-label"
+                                        for="inlineRadio1"><?php echo utf8_encode(utf8_decode($name_rol['nombre'])); ?>
                                     </label>
                                 </div>
 
@@ -173,9 +173,21 @@ $empleado_one = get_empleado_one();
             </div>
 
         </div>
+
         <div class="container">
             <div class="row justify-content-cente">
                 <div class="col-md-12 p-4">
+                    <div class="pt-4 pb-4 ">
+                        <h1 class="h2">Lista de empleados</h1>
+                    </div>
+                    <div class="pt-4 pb-4 d-flex flex-row-reverse">
+
+                        <div id="irarriba"><a href="#" class="btn btn-primary btn-lg active" id="crear-btn"
+                                role="button" aria-pressed="true"><i class="fas fa-user-plus"></i> Crear</a></div>
+
+                    </div>
+                    <div>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -363,20 +375,20 @@ $empleado_one = get_empleado_one();
                                 <div class="d-block">
                                     <div class="form-check form-check-inline col-12 mt-2">
                                         <input class="form-check-input" type="checkbox" name="rol_id[]"
-                                            id="inlineRadio2 rol_id" value="1" >
+                                            id="inlineRadio2 rol_id" value="1">
                                         <label class="form-check-label" for="inlineRadio2">Profesional de poryectos -
                                             Desarrollador</label>
                                     </div>
                                     <div class="form-check form-check-inline col-12 mt-2">
                                         <input class="form-check-input" type="checkbox" name="rol_id[]"
-                                            id="inlineRadio3 rol_id" value="2" >
-                                        <label class="form-check-label" for="inlineRadio3" >Gerente
+                                            id="inlineRadio3 rol_id" value="2">
+                                        <label class="form-check-label" for="inlineRadio3">Gerente
                                             estratégico</label>
                                     </div>
                                     <div class="form-check form-check-inline col-12 mt-2">
                                         <input class="form-check-input" type="checkbox" name="rol_id[]"
-                                            id="inlineRadio4 rol_id" value="3" >
-                                        <label class="form-check-label" for="inlineRadio4" >Auxiliar
+                                            id="inlineRadio4 rol_id" value="3">
+                                        <label class="form-check-label" for="inlineRadio4">Auxiliar
                                             administrativo</label>
                                     </div>
                                 </div>
