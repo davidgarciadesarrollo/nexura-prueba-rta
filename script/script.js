@@ -1,5 +1,7 @@
 $(function() {
 
+
+
     $("#myemailform").validate({
         rules: {
             nombre: {
@@ -42,15 +44,20 @@ $(function() {
             // id_area: {
             //     required: "Campo nombre requerido *"
             // },
-            // boletin: {
-            //     required: "Campo nombre requerido *"
-            // },
+            rol_id_s: {
+                required: "Campo nombre requerido *"
+            },
             descripcion: {
                 required: "Campo descripción requerido *"
             },
         }
     });
 });
+
+function funciones_clic(dato) {
+    editarDato(dato);
+    cosultarRoles(dato);
+}
 
 function editarDato(dato) {
     $(document).ready(function() {
@@ -69,6 +76,7 @@ function editarDato(dato) {
                 $('#precarga').css('display', 'none');
                 //$('#respuesta').css('display','block');
                 $('#id_empleado').val(data.id_empleado);
+                $('#id_empleado_edit').val(data.id_empleado);
                 $('#nombres').val(data.nombre);
                 $('#correos').val(data.correo);
                 // $('#sexo').val(data.sexo);
@@ -97,8 +105,41 @@ function editarDato(dato) {
                     }
                     //console.log($(this).val());
                 });
+
+
                 $('#descripcions').val(data.nombre);
                 //$("#vereditar-sedes").on("submit", actualizarsede);
+            },
+            error: function(jqXHR, estado, error) {
+                alert("Problemas En El Servidor");
+            }
+        });
+    });
+}
+
+
+function cosultarRoles(dato) {
+    $(document).ready(function() {
+        $.ajax({
+            beforeSend: function() {
+                $('#precarga').css('display', 'block');
+                $('#precarga').html('<img src="../img/ajax-loaders.gif"/>');
+            },
+            type: "GET",
+            url: 'db/consultarrol.php?id_empleado=' + dato,
+            //data: data,
+            success: function(msj) {
+                let data = JSON.parse(msj);
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    $("input[name='rol_id[]']").each(function(index) {
+                        if ($(this).val() == (data[i].rol_id)) {
+                            //console.log('yes')
+                            $('input[name="rol_id[]"][value=' + $(this).val() + ']').prop("checked", true);
+                        }
+                        //console.log($(this).val());
+                    });
+                }
             },
             error: function(jqXHR, estado, error) {
                 alert("Problemas En El Servidor");

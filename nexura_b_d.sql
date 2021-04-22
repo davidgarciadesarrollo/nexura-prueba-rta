@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-04-2021 a las 05:07:52
+-- Tiempo de generación: 22-04-2021 a las 02:08:03
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.3.27
 
@@ -41,7 +41,8 @@ INSERT INTO `area` (`id_area`, `nombre`) VALUES
 (2, 'Contabilidad'),
 (3, 'Recursos Humanos'),
 (4, 'Servicios generales'),
-(5, 'Digital / Ingeniería');
+(5, 'Digital / Ingeniería'),
+(6, 'arquitectura');
 
 -- --------------------------------------------------------
 
@@ -64,29 +65,47 @@ CREATE TABLE `empleados` (
 --
 
 INSERT INTO `empleados` (`id_empleado`, `nombre`, `correo`, `sexo`, `id_area`, `boletin`, `descripcion`) VALUES
-(4, 'David Garciá', 'davidgarcia.desarrollo@gmail.com', 'M', 0, 1, 'David Garciá'),
-(5, 'David Garciá', 'davidgarcia.desarrollo@gmail.com', 'F', 3, 4, 'David Garciá');
+(2, 'eder', 'davidgarcia.desarrollo@gmail.com', 'M', 1, 1, 'eder');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rol_empleado`
+-- Estructura de tabla para la tabla `empleado_rol`
 --
 
-CREATE TABLE `rol_empleado` (
+CREATE TABLE `empleado_rol` (
+  `empleado_id` int(11) NOT NULL,
+  `rol_id` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `empleado_rol`
+--
+
+INSERT INTO `empleado_rol` (`empleado_id`, `rol_id`) VALUES
+(2, '1'),
+(2, '2'),
+(2, '3');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol`
+--
+
+CREATE TABLE `rol` (
   `id_rol` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `rol_empleado`
+-- Volcado de datos para la tabla `rol`
 --
 
-INSERT INTO `rol_empleado` (`id_rol`, `nombre`) VALUES
-(1, 'Deseo recibir boletín informativo'),
-(2, 'Profesional de proyectos - Desarrollador'),
-(3, 'Gerente estratégico\r\n'),
-(4, 'Auxiliar administrativo\r\n');
+INSERT INTO `rol` (`id_rol`, `nombre`) VALUES
+(1, 'Profesional de proyectos - Desarrollador'),
+(2, 'Gerente estratégico\r\n'),
+(3, 'Auxiliar administrativo\r\n');
 
 --
 -- Índices para tablas volcadas
@@ -96,18 +115,20 @@ INSERT INTO `rol_empleado` (`id_rol`, `nombre`) VALUES
 -- Indices de la tabla `area`
 --
 ALTER TABLE `area`
-  ADD PRIMARY KEY (`id_area`);
+  ADD PRIMARY KEY (`id_area`),
+  ADD UNIQUE KEY `id_area` (`id_area`);
 
 --
 -- Indices de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  ADD PRIMARY KEY (`id_empleado`);
+  ADD PRIMARY KEY (`id_empleado`),
+  ADD KEY `id_area` (`id_area`);
 
 --
--- Indices de la tabla `rol_empleado`
+-- Indices de la tabla `rol`
 --
-ALTER TABLE `rol_empleado`
+ALTER TABLE `rol`
   ADD PRIMARY KEY (`id_rol`);
 
 --
@@ -118,18 +139,18 @@ ALTER TABLE `rol_empleado`
 -- AUTO_INCREMENT de la tabla `area`
 --
 ALTER TABLE `area`
-  MODIFY `id_area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `rol_empleado`
+-- AUTO_INCREMENT de la tabla `rol`
 --
-ALTER TABLE `rol_empleado`
+ALTER TABLE `rol`
   MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 

@@ -5,6 +5,7 @@ include_once('db/database_utilities.php');
 $area = get_area();
 $rol = get_rol_empleado();
 $empleado = get_empleado();
+$id = get_id();
 $empleado_one = get_empleado_one();
 
 
@@ -39,6 +40,21 @@ $empleado_one = get_empleado_one();
                 <div class="alert alert-info"> los campos con (*) son obligatorios</div>
                 <form action="db/database_utilities.php" name="myemailform" id="myemailform" method="POST"
                     accept-charset="UTF-8">
+                    <div class="form-group row">
+                        <div class="col-8">
+                            <?php while ($id_e = $id->fetch_assoc()) { ?>
+                            <input type="hidden" class="form-control" id="id_empleado" name="id_empleado"
+                                aria-describedby="emailHelp" value="
+                                <?php if(isset($_POST['id_empleado']) && $_POST['id_empleado']!=""){
+                                    echo("1");
+                                 }else{
+
+                                echo utf8_encode(utf8_decode($id_e['id_empleado'])+ 1);
+                                }  ?>">
+                            <?php } ?>
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <div class="col-3">
                             <label for="nombre">Nombre completo *</label>
@@ -84,7 +100,7 @@ $empleado_one = get_empleado_one();
                             <label class="" for="area">Área *</label>
                         </div>
                         <div class="col-8">
-                            <select class="custom-select " id="boletin" name="boletin">
+                            <select class="custom-select " id="id_area" name="id_area">
                                 <option selected>Selecione</option>
                                 <?php while ($name_area = $area->fetch_assoc()) { ?>
                                 <option value="<?php echo utf8_decode($name_area['id_area']);  ?>">
@@ -103,7 +119,25 @@ $empleado_one = get_empleado_one();
                         <div class="col-8">
                             <textarea type="text" class="form-control" id="descripcion" name="descripcion"
                                 aria-describedby="emailHelp" placeholder="Descripcíon de la experiencia del empleado"
-                                 required> </textarea>
+                                required> </textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-3">
+                            <label for=""></label>
+                        </div>
+                        <div class="col-8">
+                            <div class="d-block">
+                                <div class="form-check form-check-inline col-12 mt-0">
+                                    <input class="form-check-input" type="checkbox" name="boletin" id="inlineRadio1"
+                                        value="1">
+                                    <label class="form-check-label" for="inlineRadio1" id="boletin">
+                                        Deseo recibir boletín informativo
+
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -115,10 +149,14 @@ $empleado_one = get_empleado_one();
                             <div class="d-block">
                                 <?php while ($name_rol = $rol->fetch_assoc()) { ?>
                                 <div class="form-check form-check-inline col-12 mt-0">
-                                    <input class="form-check-input" type="radio" name="id_area" id="inlineRadio1"
-                                        value="<?php echo utf8_decode($name_rol['id_rol']);  ?>">
-                                    <label class="form-check-label" for="inlineRadio1"
-                                        required><?php echo utf8_encode(utf8_decode($name_rol['nombre'])); ?>
+                                    
+                                    <input class="form-check-input " type="checkbox" name="rol_id[]"
+                                        id="inlineRadio1 rol_id"
+                                        value="<?php echo utf8_decode($name_rol['id_rol']);  ?>" >
+
+
+                                    <label class="form-check-label" for="inlineRadio1" 
+                                        ><?php echo utf8_encode(utf8_decode($name_rol['nombre'])); ?>
                                     </label>
                                 </div>
 
@@ -156,22 +194,53 @@ $empleado_one = get_empleado_one();
                             <tr>
                                 <td><?php echo utf8_encode(utf8_decode($datos['nombre']));  ?></td>
                                 <td><?php echo utf8_encode(utf8_decode($datos['correo']));  ?></td>
-                                <td><?php echo utf8_encode(utf8_decode($datos['sexo']));  ?></td>
-                                <td><?php echo utf8_encode(utf8_decode($datos['id_area']));  ?></td>
-                                <td><?php echo utf8_encode(utf8_decode($datos['boletin']));  ?></td>
+                                <td>
+                                    <?php if( ($datos['sexo']) === "M") {
+                                     echo ("Masculino");
+                                }else{
+                                    echo ("Fenenino");
+                                }
+                               ?>
+                                </td>
+
+                                <td>
+                                    <?php if( ($datos['id_area']) === "1") {
+                                     echo ("Administración");
+                                }else if( ($datos['id_area']) === "2"){
+                                    echo ("Contabilidad");
+                                }else if( ($datos['id_area']) === "3"){
+                                    echo ("Recursos Humanos");
+                                }else if( ($datos['id_area']) === "4"){
+                                    echo ("Servicios generales");
+                                }else if( ($datos['id_area']) === "5"){
+                                    echo ("Digital / Ingeniería");
+                                }else if( ($datos['id_area']) === "6"){
+                                    echo ("Arquitectura");
+                                }
+                               ?>
+
+                                </td>
+
+                                <td>
+                                    <?php if( ($datos['boletin']) === "1") {
+                                     echo ("Si");
+                                }else{
+                                    echo ("No");
+                                }
+                               ?>
+                                </td>
                                 <td>
                                     <a href="#editEmployeeModal" class="" data-toggle="modal" id="click"
                                         data-id="<?= $datos['id_empleado'] ?>"
-                                        onclick="editarDato('<?= $datos['id_empleado'] ?>');"><i
+                                        onclick="funciones_clic('<?= $datos['id_empleado'] ?>');"><i
                                             class="far fa-edit"></i> <span></span></a>
-
 
                                 </td>
                                 <td>
                                     <a href="#deleteEmployeeModal" data-id="<?= $datos['id_empleado'] ?>"
                                         onclick="eliminarDato('<?= $datos['id_empleado'] ?>');" class=" edit"
                                         data-toggle="modal"><i class="far fa-trash-alt" data-toggle="tooltip" title=""
-                                            data-original-title="Edit"></i></a>
+                                            data-original-title="Edit"></i></a>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -192,7 +261,7 @@ $empleado_one = get_empleado_one();
                         accept-charset="UTF-8">
                         <div class="form-group row">
                             <div class="col-8">
-                                <input type="hidden" class="form-control" id="id_empleado" name="id_empleado"
+                                <input type="hidden" class="form-control" id="id_empleado_edit" name="id_empleado"
                                     aria-describedby="emailHelp">
                             </div>
                         </div>
@@ -207,7 +276,7 @@ $empleado_one = get_empleado_one();
                             <div class="col-8">
                                 <input type="text" class="form-control" id="nombres" name="nombre"
                                     value="<?php echo utf8_encode(utf8_decode($datos['nombre']));  ?>"
-                                    aria-describedby="emailHelp" placeholder="Nombre completo del empleado"  required>
+                                    aria-describedby="emailHelp" placeholder="Nombre completo del empleado" required>
                             </div>
                         </div>
 
@@ -243,7 +312,7 @@ $empleado_one = get_empleado_one();
 
                         <div class="form-group row">
                             <div class="col-3">
-                                <label class="" for="area">Área --</label>
+                                <label class="" for="area">Área</label>
                             </div>
                             <div class="col-8">
                                 <select class="custom-select " id="areas" name="id_area">
@@ -264,7 +333,25 @@ $empleado_one = get_empleado_one();
                             <div class="col-8">
                                 <textarea type="text" class="form-control" id="descripcions" name="descripcion"
                                     aria-describedby="emailHelp"
-                                    placeholder="Descripcíon de la experiencia del empleado"  required> </textarea>
+                                    placeholder="Descripcíon de la experiencia del empleado" required> </textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-3">
+                                <label></label>
+                            </div>
+                            <div class="col-8">
+                                <div class="d-block">
+                                    <div class="form-check form-check-inline col-12 mt-0">
+                                        <input class="form-check-input" type="checkbox" name="boletin" id="inlineRadio1"
+                                            value="1">
+                                        <label class="form-check-label" for="inlineRadio1">
+                                            Deseo recibir boletín informativo
+
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -274,29 +361,22 @@ $empleado_one = get_empleado_one();
                             </div>
                             <div class="col-8">
                                 <div class="d-block">
-                                    <div class="form-check form-check-inline col-12 mt-0">
-                                        <input class="form-check-input" type="radio" name="boletin" id="inlineRadio1 boletin"
-                                            value="1">
-                                        <label class="form-check-label" for="inlineRadio1" required>Deseo recibir
-                                            boletin
-                                            informativo</label>
-                                    </div>
                                     <div class="form-check form-check-inline col-12 mt-2">
-                                        <input class="form-check-input" type="radio" name="boletin" id="inlineRadio2 boletin"
-                                            value="2">
+                                        <input class="form-check-input" type="checkbox" name="rol_id[]"
+                                            id="inlineRadio2 rol_id" value="1" >
                                         <label class="form-check-label" for="inlineRadio2">Profesional de poryectos -
                                             Desarrollador</label>
                                     </div>
                                     <div class="form-check form-check-inline col-12 mt-2">
-                                        <input class="form-check-input" type="radio" name="boletin" id="inlineRadio3 boletin"
-                                            value="3">
-                                        <label class="form-check-label" for="inlineRadio3" required>Gerente
+                                        <input class="form-check-input" type="checkbox" name="rol_id[]"
+                                            id="inlineRadio3 rol_id" value="2" >
+                                        <label class="form-check-label" for="inlineRadio3" >Gerente
                                             estratégico</label>
                                     </div>
                                     <div class="form-check form-check-inline col-12 mt-2">
-                                        <input class="form-check-input" type="radio" name="boletin" id="inlineRadio4 boletin"
-                                            value="4">
-                                        <label class="form-check-label" for="inlineRadio4" required>Auxiliar
+                                        <input class="form-check-input" type="checkbox" name="rol_id[]"
+                                            id="inlineRadio4 rol_id" value="3" >
+                                        <label class="form-check-label" for="inlineRadio4" >Auxiliar
                                             administrativo</label>
                                     </div>
                                 </div>
@@ -323,7 +403,7 @@ $empleado_one = get_empleado_one();
                         </div>
                         <div class="modal-body">
                             <p>Esta seguro que desea eliminar el registro</p>
-                           
+
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
